@@ -39,13 +39,13 @@ public class CommentController {
     }
 
     @PutMapping("/comment/{id}")
-    public Comment deleteComment(@PathVariable Long id, @RequestBody CommentRequestDto requestDto) {
-        Comment Comment = commentRepository.findById(id).orElseThrow(
+    public Comment updateComment(@PathVariable Long id, @RequestBody CommentRequestDto requestDto) {
+        Comment comment = commentRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 글입니다.")
         );
-        Comment.update(requestDto);
+        comment.update(requestDto);
 
-        return commentRepository.save(Comment);
+        return commentRepository.save(comment);
     }
 
 }

@@ -30,23 +30,28 @@
      <style>
 
 
-          .footer img.icon-start-edit {
+          .edit-btn {
                cursor: pointer;
                position: absolute;
-               bottom: 14px;
-               right: 55px;
-               width: 1px;
-               height: 1px;
+               right: 250px;
+               width: 100px;
+               height: 40px;
           }
 
 
-          .footer img.icon-delete {
+          .delete-btn{
                cursor: pointer;
                position: absolute;
-               bottom: 12px;
-               right: 19px;
-               width: 1px;
-               height: 1px;
+               right: 125px;
+               width: 100px;
+               height: 40px;
+          }
+
+          .comment-edit-area{
+               display: none;
+          }
+          .icon-end-edit{
+               display: none;
           }
 
      </style>
@@ -109,8 +114,10 @@
 
           // 메모를 불러와서 보여줍니다.
           function getComment() {
+               let postId = [[${postId}]]
+
                // 1. 기존 메모 내용을 지웁니다.
-               $('#cards-box').empty();
+               $('#comment-box').empty();
                // 2. 메모 목록을 불러와서 HTML로 붙입니다.
                $.ajax({
                     type: 'GET',
@@ -118,33 +125,57 @@
                     success: function (response) {
                          for (let i = 0; i < response.length; i++) {
                               let message = response[i];
-                              let id = message['id'];
-                              let title = message['title'];
-                              let username = message['username'];
-                              let contents = message['contents'];
-                              let likeNum = message['likeNum'];
-                              let commentNum = message['commentNum'];
-                              addHTML(id, title, username, contents, likeNum, commentNum)
-                         }
+                              let parentId = message['parentId'];
+                              if(parentId == postId){
+                                   let message = response[i];
+                                   let id = message['id'];
+                                   let username = message['username'];
+                                   let contents = message['contents'];
+                                   let likeNum = message['likeNum'];
+
+                                   addHTML(id, username, contents, likeNum)
+                              }
+                    }
                     }
                })
           }
 
           // 메모 하나를 HTML로 만들어서 body 태그 내 원하는 곳에 붙입니다.
-          function addHTML(id, title, username, contents, likeNum, commentNum) {
+          function addHTML(commentId, username, contents, likeNum) {
                // 1. HTML 태그를 만듭니다.
-               let tempHtml = `        <section id="work" class = "work-container" onclick="location.href='/detailpage/${id}'">
-                  <div class="container">
-                       <div class="row">
+               let tempHtml =`<section class = "work-container">
+            <div class="container">
+                <div class="row">
 
-                            <div class="col-md-12 col-sm-12">
-                            <div class="wow fadeInUp section-title contents" data-wow-delay="0.2s">
-                        <div class="username" > 작성자: ${username} 좋아요: ${likeNum} 댓글: ${commentNum} </div>
-                    <div class="contents-padding text title">${contents}</div>
-                  </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="wow fadeInUp section-title contents" data-wow-delay="0.2s">
+                            <div id="comment-area-${commentId}" class = "comment-area">
+                                 <div id="1-contents" class="text title">
+                                     <div id="contents-${commentId}">${contents}</div>
+                                     <div id="username-${commentId}">${username}</div>
+
+                                     <div class="username" >좋아요: ${likeNum}</div>
+                                 </div>
+                            </div>
+
+                            <form id="comment-edit-area-${commentId}" class ="comment-edit-area">
+                                   <div class="col-md-12 col-sm-12 comment-control">
+                                       <textarea id="edit-contents-${commentId}" class="te-edit form-control comment-control box" placeholder="Comment"></textarea>
+                                   </div>
+                            </form>
+
+                            <div class="footer">
+                              <img id="comment-edit-btn" onclick="editComment(${commentId})" class="icon-start-edit" src="/images/edit.png" alt="">
+                              <img id="comment-delete-btn" onclick="deleteOneComment(${commentId})" class="icon-delete" src="/images/delete.png" alt="">
+                              <img id="comment-submit-btn" onclick="submitComment(${commentId})" class="icon-end-edit" src="/images/done.png" alt="">
+                            </div>
+
+
+                          </div>
+                    </div>
                 </div>
             </div>
-          </section>`;
+        </section>`
                // 2. #cards-box 에 HTML을 붙인다.
                $('#comment-box').append(tempHtml);
           }
@@ -153,21 +184,21 @@
           function writeComment() {
                // 1. 작성한 메모를 불러옵니다.
                let contents = $('#contents').val();
-
+               let likeNum = 1;
+               let username = "anonymous";
+               let parentId = 1;
                // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
                if (isValidContents(contents) == false) {
                     return;
                }
-               // 3. genRandomName 함수를 통해 익명의 username을 만듭니다.
-               let username = genRandomName(10);
 
                // 4. 전달할 data JSON으로 만듭니다.
-               let data = {'title':'1', 'username': username, 'contents': contents, "likeNum":1, "commentNum":1};
+               let data = {'username': username , 'contents': contents, 'likeNum': likeNum, 'parentId':parentId};
 
                // 5. POST /api/posts 에 data를 전달합니다.
                $.ajax({
                     type: "POST",
-                    url: "/api/posts",
+                    url: "/comment",
                     contentType: "application/json",
                     data: JSON.stringify(data),
                     success: function (response) {
@@ -197,6 +228,49 @@
                })
           }
 
+          function editComment(commentId) {
+               showCommentEdits(commentId);
+               let username = $(`#username-${commentId}`).text().trim();
+               let comment = $(`#comment-${commentId}`).text().trim();
+               $(`#edit-username-${commentId}`).val(username);
+               $(`#edit-comment-${commentId}`).val(comment);
+          }
+
+          function showCommentEdits(commentId) {
+               $(`#comment-edit-area-${commentId}`).show();
+               $(`#comment-submit-btn`).show();
+               $(`#comment-delete-btn`).show();
+
+               $(`#comment-area-${commentId}`).hide();
+               $(`#comment-edit-btn`).hide();
+          }
+
+          function submitComment(commentId) {
+               let contents = $(`#edit-contents-${commentId}`).val();
+               let likeNum = 1;
+               let username = "anonymous";
+               let parentId = 1;
+               // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
+               if (isValidContents(contents) == false) {
+                    return;
+               }
+
+               // 4. 전달할 data JSON으로 만듭니다.
+               let data = {'username': username , 'contents': contents, 'likeNum': likeNum, 'parentId':parentId};
+
+               // 4. data를 전달합니다.
+               $.ajax({
+                    type: "PUT",
+                    url: `/comment/${commentId}`,
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    success: function (response) {
+                         alert('댓글 변경에 성공하였습니다.');
+                         window.location.reload();
+                    }
+               });
+          }
+
 
      </script>
 </head>
@@ -221,7 +295,7 @@
                     <span class="icon icon-bar"></span>
                </button>
                <!-- lOGO TEXT HERE -->
-               <a href="index.html" class="navbar-brand">Homene.</a>
+               <a href="/" class="navbar-brand">Chw-owo</a>
           </div>
 
           <div class="collapse navbar-collapse">
@@ -248,13 +322,15 @@
                     <h3 class="wow fadeInUp" data-wow-delay="0.6s">[[${postContents}]]</h3>
                </div>
 
-               <div class="col-md-offset-9 col-md-3 col-sm-offset-3 col-sm-6">
-                    <button onclick="editPost()" type="submit" class="form-control" name="submit">edit</button>
-                    <button onclick="deletePost()" type="submit" class="form-control" name="submit">delete</button>
-               </div>
 
 
           </div>
+     </div>
+</section>
+<section>
+     <div class="col-md-offset-9 col-md-3 col-sm-offset-3 col-sm-6">
+          <button onclick="editPost()" type="submit" class="form-control edit-btn" name="submit">edit</button>
+          <button onclick="deletePost()" type="submit" class="form-control delete-btn" name="submit">delete</button>
      </div>
 </section>
 
@@ -274,7 +350,7 @@
                               <div class="col-md-4 col-sm-4">
                               </div>
                               <div class="col-md-12 col-sm-12">
-                                   <textarea id="contents"  class="form-control" placeholder="Contents"></textarea>
+                                   <textarea id="contents"  class="form-control" placeholder="Comment"></textarea>
                               </div>
                               <div class="col-md-offset-9 col-md-3 col-sm-offset-3 col-sm-6">
                                    <button onclick="writeComment()" id="submit" type="submit" class="form-control" name="submit">Comment</button>

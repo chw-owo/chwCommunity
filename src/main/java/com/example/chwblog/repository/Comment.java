@@ -16,9 +16,6 @@ public class Comment extends Timestamped { // 생성,수정 시간을 자동으�
     private Long id;
 
     @Column(nullable = false)
-    private String title;
-
-    @Column(nullable = false)
     private String username;
 
     @Column(nullable = false)
@@ -28,13 +25,10 @@ public class Comment extends Timestamped { // 생성,수정 시간을 자동으�
     private Long likeNum;
 
     @Column(nullable = false)
-    private Long commentNum;
-
-    @Column(nullable = false)
     private Long parentId ;
 
 
-    public Comment(String username, String contents, long likeNum, long parentId) {
+    public Comment(String username, String contents, Long likeNum, Long parentId) {
 
         this.username = username;
         this.contents = contents;
