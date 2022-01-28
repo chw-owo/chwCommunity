@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Timeline Service</title>
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+
+
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="Personal Website Template">
+     <meta name="keywords" content="Personal, Website Template, Minimal HTML Template, Freelancer">
+     <meta name="author" content="khai tawng">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/animate.css">
+     <link rel="stylesheet" href="css/magnific-popup.css">
+     <link rel="stylesheet" href="css/font-awesome.min.css">
+     <link rel="stylesheet" href="css/style.css">
+
+     <style>
+     </style>
+     <script>
+          // 미리 작성된 영역 - 수정하지 않으셔도 됩니다.
+          // 사용자가 내용을 올바르게 입력하였는지 확인합니다.
+          function isValidContents(contents) {
+               if (contents == '') {
+                    alert('공란을 채워주세요');
+                    return false;
+               }
+               if (contents.trim().length > 140) {
+                    alert('공백 포함 140자 이하로 입력해주세요');
+                    return false;
+               }
+               return true;
+          }
+
+          // 메모를 생성합니다.
+          function writePost() {
+               // 1. 작성한 메모를 불러옵니다.
+               let title = $('#title').val();
+               let contents = $('#contents').val();
+               let likeNum = 0;
+               let commentNum = 0;
+               let username = "anonymous";
+               let parentId = 0;
+
+
+               // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
+               if (isValidContents(contents) == false) {
+                    return;
+               }
+
+               if (isValidContents(title) == false) {
+                    return;
+               }
+
+               // 4. 전달할 data JSON으로 만듭니다.
+               let data = {'title':title, 'username': username , 'contents': contents, 'likeNum': likeNum, 'commentNum':commentNum, 'parentId':parentId};
+
+               // 5. POST /api/posts 에 data를 전달합니다.
+               $.ajax({
+                    type: "POST",
+                    url: "/posting",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    success: function (response) {
+                         alert('메시지가 성공적으로 작성되었습니다.');
+                         window.location.assign("/");
+                    }
+               });
+          }
+
+     </script>
+</head>
+<body data-spy="scroll" data-target=".navbar-collapse" data-offset="50">
+
+<!-- PRE LOADER -->
+<div class="preloader">
+     <div class="spinner">
+          <span class="spinner-rotate"></span>
+     </div>
+</div>
+
+
+<!-- NAVIGATION SECTION -->
+<div class="navbar custom-navbar navbar-fixed-top" role="navigation">
+     <div class="container">
+
+          <div class="navbar-header">
+               <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+                    <span class="icon icon-bar"></span>
+               </button>
+               <!-- lOGO TEXT HERE -->
+               <a href="/" class="navbar-brand">Chw-owo</a>
+          </div>
+
+          <div class="collapse navbar-collapse">
+               <ul class="nav navbar-nav navbar-right">
+                    <li><a class="smoothScroll" href="/">Home</a></li>
+                    <li><a class="smoothScroll" href="/posting">Posting</a></li>
+                    <li><a class="smoothScroll" href="/signin">Signin</a></li>
+               </ul>
+          </div>
+
+     </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<section id="contact">
+     <div class="container">
+          <div class="row">
+
+               <div class="col-md-12 col-sm-12">
+                    <!-- CONTACT FORM HERE -->
+                    <div class="wow fadeInUp" data-wow-delay="0.6s">
+                         <form id="contact-form">
+                              <div class="col-md-4 col-sm-4">
+                                   <input id="title"  type="text" class="form-control" placeholder="Title">
+                              </div>
+                              <div class="col-md-12 col-sm-12">
+                                   <textarea id="contents"  class="form-control" rows="20" name="message" placeholder="Contents"></textarea>
+                              </div>
+                              <div class="col-md-offset-9 col-md-3 col-sm-offset-3 col-sm-6">
+                                   <button onclick="writePost()" id="submit" type="submit" class="form-control" name="submit">Post</button>
+                              </div>
+                         </form>
+                    </div>
+               </div>
+
+          </div>
+     </div>
+</section>
+
+
+<!-- SCRIPTS -->
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/smoothscroll.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/magnific-popup-options.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+</html>
