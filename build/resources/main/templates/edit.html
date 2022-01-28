@@ -48,11 +48,7 @@
                // 1. 작성한 메모를 불러옵니다.
                let title = $('#title').val();
                let contents = $('#contents').val();
-               let likeNum = 0;
-               let commentNum = 0;
-               let username = "anonymous";
-               let parentId = 0;
-               let postId = [[${postId}]];
+               let postId = [[${postId_edit}]];
 
 
                // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
@@ -65,11 +61,11 @@
                }
 
                // 4. 전달할 data JSON으로 만듭니다.
-               let data = {'title':title, 'username': username , 'contents': contents, 'likeNum': likeNum, 'commentNum':commentNum, 'parentId':parentId};
+               let data = {'title':title,'contents': contents};
 
                // 5. POST /api/posts 에 data를 전달합니다.
                $.ajax({
-                    type: "PUT",
+                    type: "PATCH",
                     url: `/edit/${postId}`,
                     contentType: "application/json",
                     data: JSON.stringify(data),

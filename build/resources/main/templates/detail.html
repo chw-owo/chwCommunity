@@ -69,10 +69,9 @@
                let postId = [[${postId}]]
                $.ajax({
                     type: 'GET',
-                    url: "/comment",
+                    url: `/comment`,
                     contentType: "application/json",
                     success: function (response) {
-
                          for (let i = 0; i < response.length; i++) {
                               let message = response[i];
                               let parentId = message['parentId'];
@@ -128,12 +127,12 @@
                               let parentId = message['parentId'];
                               if(parentId == postId){
                                    let message = response[i];
-                                   let id = message['id'];
+                                   let commentId = message['id'];
                                    let username = message['username'];
                                    let contents = message['contents'];
                                    let likeNum = message['likeNum'];
 
-                                   addHTML(id, username, contents, likeNum)
+                                   addHTML(commentId, username, contents, likeNum)
                               }
                     }
                     }
@@ -165,9 +164,9 @@
                             </form>
 
                             <div class="footer">
-                              <img id="comment-edit-btn" onclick="editComment(${commentId})" class="icon-start-edit" src="/images/edit.png" alt="">
-                              <img id="comment-delete-btn" onclick="deleteOneComment(${commentId})" class="icon-delete" src="/images/delete.png" alt="">
-                              <img id="comment-submit-btn" onclick="submitComment(${commentId})" class="icon-end-edit" src="/images/done.png" alt="">
+                              <img id="comment-edit-btn-${commentId}" onclick="editComment(${commentId})" class="icon-start-edit" src="/images/edit.png" alt="">
+                              <img id="comment-delete-btn-${commentId}" onclick="deleteOneComment(${commentId})" class="icon-delete" src="/images/delete.png" alt="">
+                              <img id="comment-submit-btn-${commentId}" onclick="submitComment(${commentId})" class="icon-end-edit" src="/images/done.png" alt="">
                             </div>
 
 
@@ -183,17 +182,15 @@
           // 메모를 생성합니다.
           function writeComment() {
                // 1. 작성한 메모를 불러옵니다.
+               let postId = [[${postId}]];
                let contents = $('#contents').val();
-               let likeNum = 1;
-               let username = "anonymous";
-               let parentId = 1;
                // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
                if (isValidContents(contents) == false) {
                     return;
                }
 
                // 4. 전달할 data JSON으로 만듭니다.
-               let data = {'username': username , 'contents': contents, 'likeNum': likeNum, 'parentId':parentId};
+               let data = {'contents': contents, 'parentId': postId};
 
                // 5. POST /api/posts 에 data를 전달합니다.
                $.ajax({
@@ -238,29 +235,28 @@
 
           function showCommentEdits(commentId) {
                $(`#comment-edit-area-${commentId}`).show();
-               $(`#comment-submit-btn`).show();
-               $(`#comment-delete-btn`).show();
+               $(`#comment-submit-btn-${commentId}`).show();
+               $(`#comment-delete-btn-${commentId}`).show();
 
                $(`#comment-area-${commentId}`).hide();
-               $(`#comment-edit-btn`).hide();
+               $(`#comment-edit-btn-${commentId}`).hide();
           }
 
           function submitComment(commentId) {
                let contents = $(`#edit-contents-${commentId}`).val();
-               let likeNum = 1;
-               let username = "anonymous";
-               let parentId = 1;
+               let parentId = [[${postId}]]
+
                // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
                if (isValidContents(contents) == false) {
                     return;
                }
 
                // 4. 전달할 data JSON으로 만듭니다.
-               let data = {'username': username , 'contents': contents, 'likeNum': likeNum, 'parentId':parentId};
+               let data = {'contents': contents, 'parentId':parentId};
 
                // 4. data를 전달합니다.
                $.ajax({
-                    type: "PUT",
+                    type: "PATCH",
                     url: `/comment/${commentId}`,
                     contentType: "application/json",
                     data: JSON.stringify(data),
@@ -295,7 +291,7 @@
                     <span class="icon icon-bar"></span>
                </button>
                <!-- lOGO TEXT HERE -->
-               <a href="index.html" class="navbar-brand">Homene.</a>
+               <a href="/" class="navbar-brand">Chw-owo</a>
           </div>
 
           <div class="collapse navbar-collapse">
@@ -312,27 +308,37 @@
 
 <!-- HOME SECTION -->
 <section id="home">
-
     <div class="container">
           <div class="row">
-
-               <div class="col-md-8 col-sm-8">
-                    <h1 class="wow fadeInUp" data-wow-delay="0.6s">[[${postTitle}]]</h1>
-                    <div class="wow fadeInUp" data-wow-delay="0.6s">작성자: [[${postUsername}]] 좋아요: [[${postLikeNum}]] 댓글수: [[${postCommentNum}]] </div>
-                    <h3 class="wow fadeInUp" data-wow-delay="0.6s">[[${postContents}]]</h3>
+               <div id ="contents-area" class="text contents-area">
+                    <div class="col-md-8 col-sm-8">
+                         <h1 class="wow fadeInUp" data-wow-delay="0.6s">[[${postTitle}]]</h1>
+                         <div class="wow fadeInUp" data-wow-delay="0.6s">작성자: [[${postUsername}]] 좋아요: [[${postLikeNum}]] 댓글수: [[${postCommentNum}]] </div>
+                         <h3 class="wow fadeInUp" data-wow-delay="0.6s">[[${postContents}]]</h3>
+                    </div>
                </div>
-
-
-
           </div>
      </div>
+
 </section>
-<section>
-     <div class="col-md-offset-9 col-md-3 col-sm-offset-3 col-sm-6">
-          <button onclick="editPost()" type="submit" class="form-control edit-btn" name="submit">edit</button>
-          <button onclick="deletePost()" type="submit" class="form-control delete-btn" name="submit">delete</button>
+
+<!-- HOME SECTION -->
+<section >
+     <div class="container">
+          <div class="row">
+               <div class="text contents-area">
+                    <div class="col-md-offset-9 col-md-3 col-sm-offset-3 col-sm-6">
+                         <button onclick="editPost()" type="submit" class="form-control post-edit-btn" name="submit">edit</button>
+                         <button onclick="deletePost()" type="submit" class="form-control post-delete-btn" name="submit">delete</button>
+                    </div>
+               </div>
+          </div>
      </div>
+
 </section>
+
+
+
 
 <!-- ABOUT SECTION -->
 <section id="comment-box">

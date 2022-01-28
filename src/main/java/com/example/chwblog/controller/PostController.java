@@ -55,7 +55,7 @@ public class PostController {
         ModelAndView modelAndView = new ModelAndView("detail.html");
         modelAndView.addObject("postId",post.get().getId());
         modelAndView.addObject("postUsername",post.get().getUsername());
-        modelAndView.addObject("title", post.get().getTitle());
+        modelAndView.addObject("postTitle", post.get().getTitle());
         modelAndView.addObject("postContents", post.get().getContents());
         modelAndView.addObject("postLikeNum", post.get().getLikeNum());
         modelAndView.addObject("postCommentNum", post.get().getCommentNum());
@@ -70,25 +70,23 @@ public class PostController {
     public ModelAndView editPage(@PathVariable("id") Long Id) {
 
         Optional<Post> post = postRepository.findById(Id);
-
         ModelAndView modelAndView = new ModelAndView("edit.html");
-        modelAndView.addObject("postId",post.get().getId());
-        modelAndView.addObject("postUsername",post.get().getUsername());
-        modelAndView.addObject("title", post.get().getTitle());
-        modelAndView.addObject("postContents", post.get().getContents());
-        modelAndView.addObject("postLikeNum", post.get().getLikeNum());
-        modelAndView.addObject("postCommentNum", post.get().getCommentNum());
-
+        modelAndView.addObject("postId_edit",post.get().getId());
         return modelAndView;
 
     }
 
-    @PutMapping("/edit/{id}")
-    public Post editPost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
+    @PatchMapping("/edit/{id}")
+    public Post editUpdate(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 글입니다.")
         );
-        post.update(requestDto);
+        if(requestDto.getTitle()!=null){
+            post.setTitle(requestDto.getContents());
+        }
+        if(requestDto.getContents()!=null){
+            post.setContents(requestDto.getContents());
+        }
 
         return postRepository.save(post);
     }

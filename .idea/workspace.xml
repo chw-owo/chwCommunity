@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa494200-c96f-442a-b052-99e1b44b62cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/done.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.bin" afterDir="false" />
@@ -14,12 +13,24 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/controller/CommentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/controller/CommentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/controller/PostController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/controller/PostController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/dto/CommentRequestDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/dto/CommentRequestDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/dto/PostRequestDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/dto/PostRequestDto.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/Comment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/Post.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/templates/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/templates/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/post.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/dto/CommentRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/dto/CommentRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/dto/PostRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/dto/PostRequestDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/Post.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/post.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +126,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643333531362</updated>
-      <workItem from="1643333535873" duration="20058000" />
+      <workItem from="1643333535873" duration="25183000" />
     </task>
     <servers />
   </component>

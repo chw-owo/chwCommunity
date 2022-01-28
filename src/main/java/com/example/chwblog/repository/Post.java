@@ -4,12 +4,14 @@ import com.example.chwblog.Timestamped;
 import com.example.chwblog.dto.PostRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor // 기본생성자를 만듭니다.
 @Getter
+@Setter
 @Entity // 테이블과 연계됨을 스프링에게 알려줍니다.
 public class Post extends Timestamped { // 생성,수정 시간을 자동으로 만들어줍니다.
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,20 +21,25 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column
     private String username;
+
 
     @Column(nullable = false)
     private String contents;
 
     @Column
-    private Long likeNum= Long.valueOf(0);
+    private Long likeNum;
 
     @Column
-    private Long commentNum= Long.valueOf(0);
+    private Long commentNum;
 
-    @Column
-    private Long parentId = Long.valueOf(0);
+    @PrePersist
+    public void prePersist(){
+        this.username = this.username == null ? "anonymous" : this.username;
+        this.likeNum = this.likeNum == null ? Long.valueOf(0) : this.likeNum;
+        this.commentNum = this.commentNum == null ? Long.valueOf(0) : this.commentNum;
+    }
 
 
     public Post(String title, String username, String contents, Long likeNum, Long commentNum) {
@@ -41,7 +48,6 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
         this.contents = contents;
         this.likeNum = likeNum;
         this.commentNum = commentNum;
-        this.parentId = Long.valueOf(0);//
     }
 
     public void update(PostRequestDto requestDto) {
@@ -50,7 +56,6 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
         this.contents = requestDto.getContents();
         this.likeNum = requestDto.getLikeNum();
         this.commentNum = requestDto.getCommentNum();
-        this.parentId = Long.valueOf(0);
     }
 
     public Post(PostRequestDto requestDto) {
@@ -59,6 +64,5 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
         this.contents = requestDto.getContents();
         this.likeNum = requestDto.getLikeNum();
         this.commentNum = requestDto.getCommentNum();
-        this.parentId = Long.valueOf(0);
     }
 }

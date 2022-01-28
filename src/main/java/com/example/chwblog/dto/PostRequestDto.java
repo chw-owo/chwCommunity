@@ -1,8 +1,10 @@
 package com.example.chwblog.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class PostRequestDto {
 
         private String title;
@@ -11,6 +13,5 @@ public class PostRequestDto {
 
         private Long likeNum;
         private Long commentNum;
-        private Long parentId;
 
 }
