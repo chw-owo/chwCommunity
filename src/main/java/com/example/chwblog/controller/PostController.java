@@ -1,10 +1,10 @@
 package com.example.chwblog.controller;
 
 import com.example.chwblog.dto.PostRequestDto;
-import com.example.chwblog.repository.Post;
-import com.example.chwblog.repository.PostRepository;
-import com.example.chwblog.service.PostService;
+import com.example.chwblog.model.Post;
+import com.example.chwblog.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +23,7 @@ public class PostController {
     @GetMapping("/api/posts")
     public List<Post> getPosts() {
         return postRepository.findAllByOrderByModifiedAtDesc();
+
     }
 
     @DeleteMapping("/api/posts/{id}")
@@ -34,21 +35,26 @@ public class PostController {
 
     //post.html===============================================
     @GetMapping("/posting")
-    public ModelAndView getPostpage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("post.html");
+    public ModelAndView getPostPage(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ModelAndView modelAndView = new ModelAndView("post.html");
+
         return modelAndView;
+
     }
 
     @PostMapping("/posting")
-    public Post createPost(@RequestBody PostRequestDto requestDto) {
-        Post Post = new Post(requestDto);
+    public Post createPost(@RequestBody PostRequestDto requestDto,
+                           @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        String username = userDetails.getUser().getUsername();
+
+        Post Post = new Post(requestDto, username);
         return postRepository.save(Post);
     }
 
     //detail.html==============================================
     @GetMapping("/detail/{id}")
-    public ModelAndView detailPage(@PathVariable("id") Long Id) {
+    public ModelAndView detailPage(@PathVariable("id") Long Id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         Optional<Post> post = postRepository.findById(Id);
 
@@ -61,23 +67,25 @@ public class PostController {
         modelAndView.addObject("postCommentNum", post.get().getCommentNum());
 
         return modelAndView;
-
     }
 
     // edit ========================================================================
 
     @GetMapping("/edit/{id}")
-    public ModelAndView editPage(@PathVariable("id") Long Id) {
+    public ModelAndView editPage(@PathVariable("id") Long Id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         Optional<Post> post = postRepository.findById(Id);
         ModelAndView modelAndView = new ModelAndView("edit.html");
         modelAndView.addObject("postId_edit",post.get().getId());
+
         return modelAndView;
 
     }
 
     @PatchMapping("/edit/{id}")
-    public Post editUpdate(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
+    public Post editUpdate(@PathVariable Long id, @RequestBody PostRequestDto requestDto){
+
+
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 글입니다.")
         );

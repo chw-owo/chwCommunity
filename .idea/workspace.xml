@@ -5,32 +5,85 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa494200-c96f-442a-b052-99e1b44b62cb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/dto/KakaoUserInfoDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/dto/SignupRequestDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/security/UserDetailsImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/security/UserDetailsServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/security/WebSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/service/KakaoUserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/cat-image.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/images/og_img.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/controller/CommentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/controller/CommentController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/controller/PostController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/controller/PostController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/dto/CommentRequestDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/dto/CommentRequestDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/dto/PostRequestDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/dto/PostRequestDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/Comment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/Post.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/Comment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/CommentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/CommentRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/Post.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/PostRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/repository/PostRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/service/CommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/service/CommentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/service/PostService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/chwblog/service/PostService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/images/instagram-image1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/images/instagram-image2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/images/instagram-image3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/images/instagram-image4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/images/instagram-image5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/images/profile-image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/static/images/profile-image.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/images/work-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/images/work-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/images/work-3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/images/work-4.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/templates/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/resources/main/templates/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/post.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/templates/signin.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/templates/signup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/controller/CommentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/dto/CommentRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/dto/CommentRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/dto/PostRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/dto/PostRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/model/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/CommentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/model/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/repository/PostRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/service/CommentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/chwblog/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/chwblog/service/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/instagram-image1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/instagram-image2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/instagram-image3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/instagram-image4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/instagram-image5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/profile-image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/images/profile-image.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/work-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/work-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/work-3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/images/work-4.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/post.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/signin.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/signup.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,18 +144,20 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Dell\chw-owo\chwblog\src\main\resources\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Dell\chw-owo\chwblog\src\main\resources\static\images" />
       <recent name="C:\Users\Dell\chw-owo\chwblog\src\main\resources\templates" />
       <recent name="C:\Users\Dell\chw-owo\chwblog\src\main\resources\static" />
+      <recent name="C:\Users\Dell\chw-owo\chwblog\src\main\resources\static\images" />
       <recent name="C:\Users\Dell\chw-owo\chwblog\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.chwblog.security" />
       <recent name="com.example.chwblog.controller" />
       <recent name="com.example.chwblog.dto" />
       <recent name="com.example.chwblog.repository" />
@@ -126,7 +181,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643333531362</updated>
-      <workItem from="1643333535873" duration="25183000" />
+      <workItem from="1643333535873" duration="30355000" />
+      <workItem from="1643462983251" duration="14127000" />
+      <workItem from="1643544899702" duration="3915000" />
+      <workItem from="1643596729007" duration="1771000" />
+      <workItem from="1643598527892" duration="100000" />
+      <workItem from="1643598913027" duration="26301000" />
     </task>
     <servers />
   </component>
@@ -153,10 +213,17 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/../chwblog-basicCRUD/src/main/resources/templates/detail.html</url>
           <line>302</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalArgumentException" package="java.lang" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

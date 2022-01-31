@@ -1,16 +1,14 @@
 package com.example.chwblog.controller;
 
 import com.example.chwblog.dto.CommentRequestDto;
-import com.example.chwblog.dto.PostRequestDto;
-import com.example.chwblog.repository.Comment;
+import com.example.chwblog.model.Comment;
 import com.example.chwblog.repository.CommentRepository;
-import com.example.chwblog.repository.Post;
+import com.example.chwblog.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,8 +25,11 @@ public class CommentController {
     }
 
     @PostMapping("/comment")
-    public Comment createComment(@RequestBody CommentRequestDto requestDto) {
-        Comment Comment = new Comment(requestDto);
+    public Comment createComment(@RequestBody CommentRequestDto requestDto,
+                                 @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        String username = userDetails.getUser().getUsername();
+        Comment Comment = new Comment(requestDto, username);
         return commentRepository.save(Comment);
     }
 

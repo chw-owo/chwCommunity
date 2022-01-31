@@ -1,4 +1,4 @@
-package com.example.chwblog.repository;
+package com.example.chwblog.model;
 
 import com.example.chwblog.Timestamped;
 import com.example.chwblog.dto.CommentRequestDto;
@@ -17,7 +17,7 @@ public class Comment extends Timestamped { // 생성,수정 시간을 자동으�
     @Id
     private Long id;
 
-    @Column
+    @Column(nullable=false)
     private String username;
 
     @Column(nullable = false)
@@ -29,9 +29,10 @@ public class Comment extends Timestamped { // 생성,수정 시간을 자동으�
     @Column(nullable=false)
     private Long parentId;
 
+
     @PrePersist
     public void prePersist(){
-        this.username = this.username == null ? "anonymous" : this.username;
+        //this.username = this.username == null ? "anonymous" : this.username;
         this.likeNum = this.likeNum == null ? Long.valueOf(0) : this.likeNum;
     }
 
@@ -44,17 +45,17 @@ public class Comment extends Timestamped { // 생성,수정 시간을 자동으�
         this.parentId = parentId ;
     }
 
-    public void update(CommentRequestDto requestDto) {
+    public void update(CommentRequestDto requestDto, String username) {
 
-        this.username = requestDto.getUsername();
+        this.username = username;
         this.contents = requestDto.getContents();
         this.likeNum = requestDto.getLikeNum();
         this.parentId  = requestDto.getParentId ();
     }
 
-    public Comment(CommentRequestDto requestDto) {
+    public Comment(CommentRequestDto requestDto, String username) {
 
-        this.username = requestDto.getUsername();
+        this.username = username;
         this.contents = requestDto.getContents();
         this.likeNum = requestDto.getLikeNum();
         this.parentId = requestDto.getParentId();

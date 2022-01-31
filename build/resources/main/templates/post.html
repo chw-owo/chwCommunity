@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Timeline Service</title>
+     <title>ChwBlog</title>
 
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
@@ -25,6 +25,7 @@
      <style>
      </style>
      <script>
+
           // 미리 작성된 영역 - 수정하지 않으셔도 됩니다.
           // 사용자가 내용을 올바르게 입력하였는지 확인합니다.
           function isValidContents(contents) {
@@ -44,9 +45,6 @@
                // 1. 작성한 메모를 불러옵니다.
                let title = $('#title').val();
                let contents = $('#contents').val();
-               let likeNum = 0;
-               let commentNum = 0;
-               let username = "anonymous";
 
 
                // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
@@ -95,16 +93,19 @@
                     <span class="icon icon-bar"></span>
                     <span class="icon icon-bar"></span>
                     <span class="icon icon-bar"></span>
-               </button>
-               <!-- lOGO TEXT HERE -->
-               <a href="/" class="navbar-brand">Chw-owo</a>
+               </button><a href="/" class="navbar-brand" sec:authorize="isAuthenticated()"><span sec:authentication="principal.username"></span></a>
           </div>
+
 
           <div class="collapse navbar-collapse">
                <ul class="nav navbar-nav navbar-right">
+
                     <li><a class="smoothScroll" href="/">Home</a></li>
                     <li><a class="smoothScroll" href="/posting">Posting</a></li>
-                    <li><a class="smoothScroll" href="/signin">Signin</a></li>
+                    <li><a class="smoothScroll" href="/user/login">LogIn</a></li>
+                    <form id="my_form" method = "post" action = "/user/logout">
+                         <a class="smoothScroll" style="color: black;" id="logout-text" href="javascript:{}" onclick="document.getElementById('my_form').submit();">LogOut</a>
+                    </form>
                </ul>
           </div>
 

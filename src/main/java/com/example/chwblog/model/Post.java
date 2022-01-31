@@ -1,4 +1,4 @@
-package com.example.chwblog.repository;
+package com.example.chwblog.model;
 
 import com.example.chwblog.Timestamped;
 import com.example.chwblog.dto.PostRequestDto;
@@ -21,7 +21,7 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
     @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(nullable=false)
     private String username;
 
 
@@ -36,7 +36,7 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
 
     @PrePersist
     public void prePersist(){
-        this.username = this.username == null ? "anonymous" : this.username;
+        //this.username = this.username == null ? "anonymous" : this.username;
         this.likeNum = this.likeNum == null ? Long.valueOf(0) : this.likeNum;
         this.commentNum = this.commentNum == null ? Long.valueOf(0) : this.commentNum;
     }
@@ -50,17 +50,17 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
         this.commentNum = commentNum;
     }
 
-    public void update(PostRequestDto requestDto) {
+    public void update(PostRequestDto requestDto, String username) {
         this.title = requestDto.getTitle();
-        this.username = requestDto.getUsername();
+        this.username = username;
         this.contents = requestDto.getContents();
         this.likeNum = requestDto.getLikeNum();
         this.commentNum = requestDto.getCommentNum();
     }
 
-    public Post(PostRequestDto requestDto) {
+    public Post(PostRequestDto requestDto, String username) {
         this.title = requestDto.getTitle();
-        this.username = requestDto.getUsername();
+        this.username = username;
         this.contents = requestDto.getContents();
         this.likeNum = requestDto.getLikeNum();
         this.commentNum = requestDto.getCommentNum();
