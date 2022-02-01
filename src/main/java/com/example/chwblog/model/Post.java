@@ -42,13 +42,7 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
     }
 
 
-    public Post(String title, String username, String contents, Long likeNum, Long commentNum) {
-        this.title = title;
-        this.username = username;
-        this.contents = contents;
-        this.likeNum = likeNum;
-        this.commentNum = commentNum;
-    }
+
 
     public void update(PostRequestDto requestDto, String username) {
         this.title = requestDto.getTitle();

@@ -21,9 +21,11 @@ public class PostController {
     //index.html==================================================
 
     @GetMapping("/api/posts")
-    public List<Post> getPosts() {
-        return postRepository.findAllByOrderByModifiedAtDesc();
-
+    public ModelAndView getPosts() {
+        List<Post> postList = postRepository.findAll();
+        ModelAndView modelAndView = new ModelAndView("index.html");
+        modelAndView.addObject("postList",postList);
+        return modelAndView;
     }
 
     @DeleteMapping("/api/posts/{id}")
@@ -35,7 +37,7 @@ public class PostController {
 
     //post.html===============================================
     @GetMapping("/posting")
-    public ModelAndView getPostPage(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ModelAndView getPostPage() {
         ModelAndView modelAndView = new ModelAndView("post.html");
 
         return modelAndView;
@@ -72,7 +74,7 @@ public class PostController {
     // edit ========================================================================
 
     @GetMapping("/edit/{id}")
-    public ModelAndView editPage(@PathVariable("id") Long Id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ModelAndView editPage(@PathVariable("id") Long Id) {
 
         Optional<Post> post = postRepository.findById(Id);
         ModelAndView modelAndView = new ModelAndView("edit.html");

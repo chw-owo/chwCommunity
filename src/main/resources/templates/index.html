@@ -40,18 +40,21 @@
                     type: 'GET',
                     url: '/api/posts',
                     success: function (response) {
-                         for (let i = 0; i < response.length; i++) {
-                              let message = response[i];
+
+                         let postList = [[${postList}]];
+                         console.log(postList);
+                         console.log(postList.length);
+
+                         for (let i = 0; i < postList.length; i++) {
+                              let message = postList[i];
                               let id = message['id'];
+
                               let title = message['title'];
                               let username = message['username'];
                               let contents = message['contents'];
                               let likeNum = 0;//message['likeNum'];
                               let commentNum = 0;//message['commentNum'];
-                              if (title != undefined && username != undefined && contents !=undefined){
-                                   addHTML(id, title, username, contents, likeNum, commentNum);
-                              }
-
+                              addHTML(id, title, username, contents, likeNum, commentNum);
                          }
                     }
                })
@@ -67,7 +70,7 @@
                             <div class="col-md-12 col-sm-12">
                             <div class="wow fadeInUp section-title contents" data-wow-delay="0.2s">
                             <div class="title-padding text title"><h2 class="title">${title}</h2>
-                        <div class="username" > 작성자: ${username} 좋아요: ${likeNum} 댓글수: ${commentNum} </div>
+                        <div class="username" > ID: ${id} 작성자: ${username} 좋아요: ${likeNum} 댓글수: ${commentNum} </div>
                     <div class="contents-padding text title">${contents}</div>
                   </div>
                 </div>
@@ -109,13 +112,13 @@
                     <li><a class="smoothScroll" href="/">Home</a></li>
                     <li><a class="smoothScroll" href="/posting">Posting</a></li>
                     <li>
-                         <a sec:authorize="!isAuthenticated()" class="smoothScroll" href="/user/login">LogIn</a>
-                         <a sec:authorize="isAuthenticated()" class="smoothScroll" onclick="alert('이미 로그인 된 상태입니다'); return false;">LogIn</a>
+                         <a class="smoothScroll" href="/user/login">LogIn</a>
+<!--                         <a sec:authorize="isAuthenticated()" class="smoothScroll" onclick="alert('이미 로그인 상태입니다'); return false;">LogIn</a>-->
                     </li>
 
                     <form id="my_form" method = "post" action = "/user/logout">
-                         <a sec:authorize="isAuthenticated()" href="javascript:{}" onclick="document.getElementById('my_form').submit();">LogOut</a>
-                         <a sec:authorize="!isAuthenticated()" onclick="alert('이미 로그아웃 된 상태입니다'); return false;">LogOut</a>
+                         <a class="smoothScroll" href="javascript:{}" onclick="document.getElementById('my_form').submit();">LogOut</a>
+<!--                         <a sec:authorize="!isAuthenticated()" onclick="alert('이미 로그아웃 상태입니다'); return false;">LogOut</a>-->
                     </form>
 
                </ul>
@@ -146,7 +149,7 @@
 
 <!-- ABOUT SECTION -->
 <section id="post-box">
->
+
 </section>
 
 

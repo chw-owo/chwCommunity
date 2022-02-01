@@ -5,10 +5,19 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity // 스프링 Security 지원을 가능하게 함
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+//
+//    private final AuthenticationSuccessHandler customSuccessHandler;
+//
+//    public WebSecurityConfig(AuthenticationSuccessHandler customSuccessHandler) {
+//        this.customSuccessHandler = customSuccessHandler;
+//    }
+
+    CustomLogoutHandler customLogoutHandler = new CustomLogoutHandler();
 
     @Bean
     public BCryptPasswordEncoder encodePassword() {
@@ -30,39 +39,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
-// image 폴더를 login 없이 허용
                 .antMatchers("/css/**", "js/**", "/img/**", "/lib/**").permitAll()
-// css 폴더를 login 없이 허용
-// 회원 관리 처리 API 전부를 login 없이 허용
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/detail/**").permitAll()
                 .antMatchers("/").permitAll()
-// 그 외 어떤 요청이든 '인증'
                 .anyRequest().authenticated()
                 .and()
 // [로그인 기능]
                 .formLogin()
 // 로그인 View 제공 (GET /user/login)
-                .loginPage("/user/login")
+                .loginPage("/user/login/page")
 // 로그인 처리 (POST /user/login)
                 .loginProcessingUrl("/user/login")
 // 로그인 처리 후 성공 시 URL
                 .defaultSuccessUrl("/")
 // 로그인 처리 후 실패 시 URL
                 .failureUrl("/user/login?error")
+//                .successHandler(customSuccessHandler)
                 .permitAll()
                 .and()
 // [로그아웃 기능]
                 .logout()
 // 로그아웃 요청 처리 URL
                 .logoutUrl("/user/logout")
+                .addLogoutHandler(customLogoutHandler)
                 .permitAll();
 
-        http
-                .exceptionHandling()
-                .authenticationEntryPoint(new AjaxAuthenticationEntryPoint("/user/login"));
-
+        //http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
     }
+
+//    private AccessDeniedHandler accessDeniedHandler() {
+//        CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
+//        accessDeniedHandler.setErrorPage("/denied");
+//        return accessDeniedHandler;
+//    }
 
 
 }
