@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,16 +40,49 @@ public class CommentController {
         return id;
     }
 
+    @DeleteMapping("/comment/one/{id}")
+    public int deleteComment(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Optional<Comment> comment = commentRepository.findById(id);
+        String commentUsername = comment.get().getUsername();
+        String username = userDetails.getUser().getUsername();
+
+        int resultMsg;
+        if (commentUsername == username) {
+            commentRepository.deleteById(id);
+            resultMsg = 0;
+        } else {
+            resultMsg = 1;
+        }
+
+        return resultMsg;
+    }
+
+
+
     @PatchMapping("/comment/{id}")
-    public Comment updateComment(@PathVariable Long id, @RequestBody CommentRequestDto requestDto) {
+    public int updateComment(@PathVariable Long id, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Comment comment = commentRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 글입니다.")
         );
 
-        if(requestDto.getContents()!=null){
-            comment.setContents(requestDto.getContents());
+
+        String commentUsername = comment.getUsername();
+        String username = userDetails.getUser().getUsername();
+        int resultMsg;
+
+        if(commentUsername == username) {
+            if (requestDto.getContents() != null) {
+                comment.setContents(requestDto.getContents());
+            }
+            resultMsg = 0;
+            commentRepository.save(comment);
+
+        } else{
+            resultMsg = 1;
+
         }
-        return commentRepository.save(comment);
+
+        return resultMsg;
     }
 
 }

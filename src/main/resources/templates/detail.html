@@ -87,7 +87,7 @@
                     url: `/detail/${postId}`,
                     success: function (response) {
 
-                         if(response == "t") {
+                         if(response == 0) {
                               alert('게시글을 삭제하였습니다.');
                               window.location.assign("/");
                          }
@@ -102,7 +102,24 @@
 
           function editPost(){
                let postId = [[${postId}]];
-               window.location.assign(`/edit/${postId}`);
+
+               $.ajax({
+                    type: "GET",
+                    url: `/detail/edit/${postId}`,
+                    success: function (response) {
+
+                         if(response == 0) {
+
+                              window.location.assign(`/edit/${postId}`);
+                         }
+                         else{
+                              alert('본인의 게시글만 수정할 수 있습니다');
+                         }
+
+                    }
+               })
+
+
 
           }
 
@@ -217,9 +234,22 @@
           // 메모를 삭제합니다.
           function deleteOneComment(id) {
 
-               deleteComment(id);
-               window.location.reload();
-               alert('메시지 삭제에 성공하였습니다.');
+               $.ajax({
+                    type: "DELETE",
+                    url: `/comment/one/${id}`,
+                    success: function (response) {
+
+                         if(response == 0) {
+                              window.location.reload();
+                              alert('메시지 삭제에 성공하였습니다.');
+                         }
+                         else{
+                              alert('본인의 댓글만 삭제할 수 있습니다');
+                         }
+
+                    }
+               })
+
 
           }
 
@@ -235,11 +265,20 @@
           }
 
           function editComment(commentId) {
-               showCommentEdits(commentId);
-               let username = $(`#username-${commentId}`).text().trim();
-               let comment = $(`#comment-${commentId}`).text().trim();
-               $(`#edit-username-${commentId}`).val(username);
-               $(`#edit-comment-${commentId}`).val(comment);
+
+               let commentUsername = $(`#username-${commentId}`).text().trim();
+               let username = $("#username").text();
+               console.log(commentUsername);
+               console.log(username);
+               if(username == commentUsername){
+                    let comment = $(`#comment-${commentId}`).text().trim();
+                    $(`#edit-username-${commentId}`).val(username);
+                    $(`#edit-comment-${commentId}`).val(comment);
+                    showCommentEdits(commentId);
+               }else{
+                    alert('본인의 댓글만 수정할 수 있습니다');
+               }
+
           }
 
           function showCommentEdits(commentId) {
@@ -263,17 +302,24 @@
                // 4. 전달할 data JSON으로 만듭니다.
                let data = {'contents': contents, 'parentId':parentId};
 
-               // 4. data를 전달합니다.
+
                $.ajax({
                     type: "PATCH",
                     url: `/comment/${commentId}`,
                     contentType: "application/json",
                     data: JSON.stringify(data),
                     success: function (response) {
-                         alert('댓글 변경에 성공하였습니다.');
-                         window.location.reload();
+
+                         if(response == 0) {
+                              alert('댓글 변경에 성공하였습니다.');
+                              window.location.reload();
+                         }
+                         else{
+                              alert('본인의 댓글만 수정할 수 있습니다');
+                         }
+
                     }
-               });
+               })
           }
 
 
@@ -298,7 +344,8 @@
                     <span class="icon icon-bar"></span>
                     <span class="icon icon-bar"></span>
                     <span class="icon icon-bar"></span>
-               </button><a href="/" class="navbar-brand" sec:authorize="isAuthenticated()"><span sec:authentication="principal.username"></span></a>
+               </button>
+               <a href="/" class="navbar-brand" sec:authorize="isAuthenticated()"><span id="username" sec:authentication="principal.username"></span></a>
           </div>
 
 

@@ -72,20 +72,39 @@ public class PostController {
 
     @ResponseBody
     @DeleteMapping("/detail/{id}")
-    public String deletePost(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public int deletePost(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Optional<Post> post = postRepository.findById(id);
         String postUsername = post.get().getUsername();
         String username = userDetails.getUser().getUsername();
 
-        String resultMsg = "";
+        int resultMsg;
         if(postUsername == username){
             postRepository.deleteById(id);
-            resultMsg = "t";
+            resultMsg = 0;
         }else{
-            resultMsg = "f";
+            resultMsg = 1;
         }
 
         return resultMsg;
+    }
+
+
+    @GetMapping("/detail/edit/{id}")
+    public int editPage(@PathVariable("id") Long Id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+
+        Optional<Post> post = postRepository.findById(Id);
+        String postUsername = post.get().getUsername();
+        String username = userDetails.getUser().getUsername();
+
+        int resultMsg;
+        if(postUsername == username) {
+            resultMsg = 0;
+        }
+        else{
+            resultMsg = 1;
+        }
+        return resultMsg;
+
     }
 
     // edit ========================================================================
@@ -101,20 +120,34 @@ public class PostController {
 
     }
 
+
     @PatchMapping("/edit/{id}")
-    public Post editUpdate(@PathVariable Long id, @RequestBody PostRequestDto requestDto){
+    public int editUpdate(@PathVariable Long id, @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
 
 
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 글입니다.")
         );
-        if(requestDto.getTitle()!=null){
-            post.setTitle(requestDto.getContents());
-        }
-        if(requestDto.getContents()!=null){
-            post.setContents(requestDto.getContents());
+
+        String postUsername = post.getUsername();
+        String username = userDetails.getUser().getUsername();
+        int resultMsg;
+
+        if(postUsername == username) {
+            if (requestDto.getTitle() != null) {
+                post.setTitle(requestDto.getContents());
+            }
+            if (requestDto.getContents() != null) {
+                post.setContents(requestDto.getContents());
+            }
+            resultMsg = 0;
+            postRepository.save(post);
+
+        } else{
+            resultMsg = 1;
+
         }
 
-        return postRepository.save(post);
+        return resultMsg;
     }
 }
