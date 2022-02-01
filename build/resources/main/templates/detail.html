@@ -89,7 +89,7 @@
 
                          if(response == 0) {
                               alert('게시글을 삭제하였습니다.');
-                              window.location.assign("/");
+                              window.location.href="/";
                          }
                          else{
                               alert('본인의 게시글만 삭제할 수 있습니다');
@@ -174,6 +174,7 @@
 
                     <div class="col-md-12 col-sm-12">
                         <div class="wow fadeInUp section-title contents" data-wow-delay="0.2s">
+
                             <div id="comment-area-${commentId}" class = "comment-area">
                                  <div id="1-contents" class="text title">
                                      <div id="contents-${commentId}">${contents}</div>
@@ -191,16 +192,37 @@
 
                             <div class="footer">
                               <img id="comment-edit-btn-${commentId}" onclick="editComment(${commentId})" class="icon-start-edit" src="/images/edit.png" alt="">
-                              <img id="comment-delete-btn-${commentId}" onclick="deleteOneComment(${commentId})" class="icon-delete" src="/images/delete.png" alt="">
+                              <img id="comment-delete-btn-${commentId}" type="button" class="icon-delete" data-toggle="modal" data-target="#exampleModal" src="/images/delete.png" alt="">
                               <img id="comment-submit-btn-${commentId}" onclick="submitComment(${commentId})" class="icon-end-edit" src="/images/done.png" alt="">
                             </div>
-
 
                           </div>
                     </div>
                 </div>
             </div>
-        </section>`
+        </section>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                         <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">게시물 삭제</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                   <span aria-hidden="true">&times;</span>
+                              </button>
+                         </div>
+                         <div class="modal-body">
+                              댓글을 정말 삭제하시겠습니까?
+                         </div>
+                         <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" onclick="deleteOneComment(${commentId})" >삭제하기</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+                         </div>
+                    </div>
+               </div>
+          </div>
+          `
                // 2. #cards-box 에 HTML을 붙인다.
                $('#comment-box').append(tempHtml);
           }
@@ -225,10 +247,13 @@
                     contentType: "application/json",
                     data: JSON.stringify(data),
                     success: function (response) {
-                         alert('메시지가 성공적으로 작성되었습니다.');
                          window.location.reload();
+                         alert('메시지가 성공적으로 작성되었습니다.');
+
                     }
                });
+
+
           }
 
           // 메모를 삭제합니다.
@@ -241,7 +266,6 @@
 
                          if(response == 0) {
                               window.location.reload();
-                              alert('메시지 삭제에 성공하였습니다.');
                          }
                          else{
                               alert('본인의 댓글만 삭제할 수 있습니다');
@@ -271,9 +295,9 @@
                console.log(commentUsername);
                console.log(username);
                if(username == commentUsername){
-                    let comment = $(`#comment-${commentId}`).text().trim();
-                    $(`#edit-username-${commentId}`).val(username);
-                    $(`#edit-comment-${commentId}`).val(comment);
+                    let comment = $(`#contents-${commentId}`).text().trim();
+                    //$(`#edit-username-${commentId}`).val(username);
+                    $(`#edit-contents-${commentId}`).val(comment);
                     showCommentEdits(commentId);
                }else{
                     alert('본인의 댓글만 수정할 수 있습니다');
@@ -311,8 +335,9 @@
                     success: function (response) {
 
                          if(response == 0) {
-                              alert('댓글 변경에 성공하였습니다.');
                               window.location.reload();
+                              alert('댓글 변경에 성공하였습니다.');
+
                          }
                          else{
                               alert('본인의 댓글만 수정할 수 있습니다');
@@ -386,13 +411,15 @@
 
 </section>
 
+
+
 <!-- HOME SECTION -->
 <section >
      <div class="container">
           <div class="row">
                <div class="text contents-area">
                     <div class="col-md-offset-9 col-md-3 col-sm-offset-3 col-sm-6">
-                         <button onclick="editPost()" type="submit" class="form-control post-edit-btn" name="submit">edit</button>
+                         <button onclick="editPost()" type="button" class="form-control post-edit-btn" name="submit">edit</button>
                          <button onclick="deletePost()" type="submit" class="form-control post-delete-btn" name="submit">delete</button>
                     </div>
                </div>
@@ -420,10 +447,11 @@
                               <div class="col-md-4 col-sm-4">
                               </div>
                               <div class="col-md-12 col-sm-12">
-                                   <textarea id="contents"  class="form-control" placeholder="Comment"></textarea>
+                                   <textarea sec:authorize="isAuthenticated()" id="contents"  class="form-control" placeholder="Comment"></textarea>
+                                   <textarea sec:authorize="!isAuthenticated()" class="form-control" placeholder="Comment" onclick="alert('로그인 후 이용 가능합니다.'); window.location.assign('/user/login')"></textarea>
                               </div>
                               <div class="col-md-offset-9 col-md-3 col-sm-offset-3 col-sm-6">
-                                   <button onclick="writeComment()" id="submit" type="submit" class="form-control" name="submit">Comment</button>
+                                   <button onclick="writeComment()" id="submit" type="button" class="form-control" name="submit">Comment</button>
                               </div>
                          </form>
                     </div>

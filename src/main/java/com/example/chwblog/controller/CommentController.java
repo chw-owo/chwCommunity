@@ -22,7 +22,7 @@ public class CommentController {
 
     @GetMapping("/comment")
     public List<Comment> getComments() {
-        return commentRepository.findAllByOrderByModifiedAtDesc();
+        return commentRepository.findAllByOrderByCreatedAtDesc();
     }
 
     @PostMapping("/comment")

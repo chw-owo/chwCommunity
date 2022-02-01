@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor // 기본생성자를 만듭니다.
 @Getter
@@ -29,11 +30,13 @@ public class Comment extends Timestamped { // 생성,수정 시간을 자동으�
     @Column(nullable=false)
     private Long parentId;
 
+    private LocalDateTime createdAt;
 
     @PrePersist
     public void prePersist(){
         //this.username = this.username == null ? "anonymous" : this.username;
         this.likeNum = this.likeNum == null ? Long.valueOf(0) : this.likeNum;
+        this.createdAt = LocalDateTime.now();
     }
 
 

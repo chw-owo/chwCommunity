@@ -71,7 +71,8 @@
                     contentType: "application/json",
                     data: JSON.stringify(data),
                     success: function (response) {
-                         alert('메시지가 성공적으로 작성되었습니다.');
+
+                         alert('게시글이 성공적으로 작성되었습니다.');
                          window.location.assign("/");
                     }
                });
@@ -138,7 +139,7 @@
                                    <textarea id="contents"  class="form-control" rows="20" name="message" placeholder="Contents"></textarea>
                               </div>
                               <div class="col-md-offset-9 col-md-3 col-sm-offset-3 col-sm-6">
-                                   <button onclick="writePost()" id="submit" type="submit" class="form-control" name="submit">Post</button>
+                                   <button onclick="writePost()" id="submit" type="button" class="form-control" name="submit">Post</button>
                               </div>
                          </form>
                     </div>

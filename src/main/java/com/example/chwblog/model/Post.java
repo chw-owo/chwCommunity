@@ -34,15 +34,15 @@ public class Post extends Timestamped { // 생성,수정 시간을 자동으로 
     @Column
     private Long commentNum;
 
+    private LocalDateTime createdAt;
+
     @PrePersist
     public void prePersist(){
         //this.username = this.username == null ? "anonymous" : this.username;
         this.likeNum = this.likeNum == null ? Long.valueOf(0) : this.likeNum;
         this.commentNum = this.commentNum == null ? Long.valueOf(0) : this.commentNum;
+        this.createdAt = LocalDateTime.now();
     }
-
-
-
 
     public void update(PostRequestDto requestDto, String username) {
         this.title = requestDto.getTitle();

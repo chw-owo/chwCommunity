@@ -24,11 +24,11 @@ public class PostController {
     public ModelAndView getPosts() {
         ModelAndView modelAndView = new ModelAndView("index.html");
         int tmp = 11;
-        List<Post> postList = postRepository.findAllByOrderByModifiedAtDesc();
+        List<Post> postList = postRepository.findAllByOrderByCreatedAtDesc();
         modelAndView.addObject("tmp",tmp);
         modelAndView.addObject("postList",postList);
         return modelAndView;
-        //return postRepository.findAllByOrderByModifiedAtDesc();
+        //return postRepository.findAllByOrderByCreatedAtDesc();
     }
 
 
@@ -49,8 +49,8 @@ public class PostController {
 
         String username = userDetails.getUser().getUsername();
 
-        Post Post = new Post(requestDto, username);
-        return postRepository.save(Post);
+        Post post = new Post(requestDto, username);
+        return postRepository.save(post);
     }
 
     //detail.html==============================================
