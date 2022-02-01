@@ -20,12 +20,15 @@ public class PostController {
 
     //index.html==================================================
 
-    @GetMapping("/api/posts")
+    @GetMapping("/")
     public ModelAndView getPosts() {
-        List<Post> postList = postRepository.findAll();
         ModelAndView modelAndView = new ModelAndView("index.html");
+        int tmp = 11;
+        List<Post> postList = postRepository.findAllByOrderByModifiedAtDesc();
+        modelAndView.addObject("tmp",tmp);
         modelAndView.addObject("postList",postList);
         return modelAndView;
+        //return postRepository.findAllByOrderByModifiedAtDesc();
     }
 
     @DeleteMapping("/api/posts/{id}")
