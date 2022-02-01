@@ -31,11 +31,7 @@ public class PostController {
         //return postRepository.findAllByOrderByModifiedAtDesc();
     }
 
-    @DeleteMapping("/api/posts/{id}")
-    public Long deletePost(@PathVariable Long id) {
-        postRepository.deleteById(id);
-        return id;
-    }
+
 
 
     //post.html===============================================
@@ -72,6 +68,24 @@ public class PostController {
         modelAndView.addObject("postCommentNum", post.get().getCommentNum());
 
         return modelAndView;
+    }
+
+    @ResponseBody
+    @DeleteMapping("/detail/{id}")
+    public String deletePost(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Optional<Post> post = postRepository.findById(id);
+        String postUsername = post.get().getUsername();
+        String username = userDetails.getUser().getUsername();
+
+        String resultMsg = "";
+        if(postUsername == username){
+            postRepository.deleteById(id);
+            resultMsg = "t";
+        }else{
+            resultMsg = "f";
+        }
+
+        return resultMsg;
     }
 
     // edit ========================================================================
