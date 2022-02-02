@@ -10,12 +10,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @Configuration
 @EnableWebSecurity // 스프링 Security 지원을 가능하게 함
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//    private final AuthenticationSuccessHandler customSuccessHandler;
-//
-//    public WebSecurityConfig(AuthenticationSuccessHandler customSuccessHandler) {
-//        this.customSuccessHandler = customSuccessHandler;
-//    }
+
 
     CustomLogoutHandler customLogoutHandler = new CustomLogoutHandler();
 
@@ -65,14 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addLogoutHandler(customLogoutHandler)
                 .permitAll();
 
-        //http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
     }
 
-//    private AccessDeniedHandler accessDeniedHandler() {
-//        CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
-//        accessDeniedHandler.setErrorPage("/denied");
-//        return accessDeniedHandler;
-//    }
 
 
 }

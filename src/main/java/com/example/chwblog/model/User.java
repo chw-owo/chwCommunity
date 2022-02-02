@@ -1,4 +1,6 @@
 package com.example.chwblog.model;
+import com.example.chwblog.dto.SignupRequestDto;
+import com.example.chwblog.validator.UserValidator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,14 +38,39 @@ public class User {
     private Long kakaoId;
 
     public User(String username, String password) {
+
+        UserValidator.validateUserInput(username, password);
+
         this.username = username;
         this.password = password;
         this.kakaoId = null;
     }
 
+
+
     public User(String username, String password, Long kakaoId) {
+
         this.username = username;
         this.password = password;
         this.kakaoId = kakaoId;
+
+
+    }
+
+    public User(SignupRequestDto requestDto) {
+
+        if (requestDto.getUsername() == null || requestDto.getUsername().isEmpty()||requestDto.getUsername()=="") {
+            throw new IllegalArgumentException("회원 Id 가 유효하지 않습니다.");
+        }
+
+        if (requestDto.getPassword() == null || requestDto.getPassword().isEmpty()||requestDto.getPassword()=="") {
+            throw new IllegalArgumentException("비밀번호가 유효하지 않습니다.");
+        }
+
+        this.username = requestDto.getUsername();
+        this.password = requestDto.getPassword();
+        this.kakaoId = null;
+
     }
 }
+

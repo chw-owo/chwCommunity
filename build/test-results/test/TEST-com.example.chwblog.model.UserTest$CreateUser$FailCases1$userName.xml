@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="username" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-02-02T06:43:48" hostname="DESKTOP-44P6V17" time="0.001">
+  <properties/>
+  <testcase name="null" classname="com.example.chwblog.model.UserTest$CreateUser$FailCases1$userName" time="0.0"/>
+  <testcase name="빈 문자열" classname="com.example.chwblog.model.UserTest$CreateUser$FailCases1$userName" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

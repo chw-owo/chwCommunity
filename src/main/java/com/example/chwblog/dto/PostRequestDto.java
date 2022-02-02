@@ -14,4 +14,10 @@ public class PostRequestDto {
         private Long likeNum;
         private Long commentNum;
 
+        public PostRequestDto(String title, String contents, Long likeNum, Long commentNum) {
+                this.title = title;
+                this.contents = contents;
+                this.likeNum = likeNum;
+                this.commentNum = commentNum;
+        }
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="회원가입" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-02-02T06:43:48" hostname="DESKTOP-44P6V17" time="0.016">
+  <properties/>
+  <testcase name="정상 케이스" classname="com.example.chwblog.model.UserTest$CreateUser" time="0.016"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
