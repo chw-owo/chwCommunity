@@ -24,14 +24,6 @@ public class UserController {
     private final UserService userService;
     private final KakaoUserService kakaoUserService;
 
-    private boolean isAuthenticated() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || AnonymousAuthenticationToken.class.
-                isAssignableFrom(authentication.getClass())) {
-            return false;
-        }
-        return authentication.isAuthenticated();
-    }
     @Autowired
     public UserController(UserService userService, KakaoUserService kakaoUserService) {
         this.userService = userService;
@@ -40,44 +32,23 @@ public class UserController {
 
     @GetMapping("/user/login/page")
     public String loginPage (HttpServletResponse response) throws IOException {
-        if (!isAuthenticated()) {
-            response.setContentType("text/html; charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('로그인이 필요한 기능입니다');</script>");
-            out.flush();
-            return "login";
-        }else{
-            return "redirect:/";
-        }
+        String result = userService.loginPage(response);
+        return result;
 
     }
 
     // 회원 로그인 페이지
     @GetMapping("/user/login")
     public String login(HttpServletResponse response) throws IOException  {
-        if (isAuthenticated()) {
-            response.setContentType("text/html; charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('이미 로그인 상태입니다.'); history.go(-1);</script>");
-            out.flush();
-            return "redirect:/";
-        }else{
-            return "login";
-        }
+        String result = userService.login(response);
+        return result;
 
     }
 
     @PostMapping("/user/logout")
     public String logoutPage (HttpServletResponse response) throws IOException {
-        if (!isAuthenticated()) {
-            response.setContentType("text/html; charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            out.println("<script>alert('이미 로그아웃 상태입니다.'); history.go(-1);</script>");
-            out.flush();
-            return "login";
-        }else{
-            return "redirect:/user/logout";
-        }
+        String result = userService.logoutPage(response);
+        return result;
     }
 
     // 회원 가입 페이지
@@ -89,19 +60,10 @@ public class UserController {
     // 회원 가입 요청 처리
     @PostMapping("/user/signup")
     public ModelAndView registerUser(Model model, @RequestBody SignupRequestDto requestDto) {
-        int check = userService.registerUser(requestDto);
-
-        ModelAndView modelAndView = new ModelAndView();
-        MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
-        modelAndView.setView(jsonView);
-
-        model.addAttribute("idCheck", check);
-
+        ModelAndView modelAndView = userService.registerUser(model, requestDto);
         return modelAndView;
 
     }
-
-
 
     @GetMapping("/user/kakao/callback")
     public String kakaoLogin(@RequestParam String code) throws JsonProcessingException {
@@ -112,11 +74,8 @@ public class UserController {
     @GetMapping("/denied")
     public String accessDenied(@RequestParam(value = "exception",required = false) String exception,
                                Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User)authentication.getPrincipal();
-        model.addAttribute("username",user.getUsername());
-        model.addAttribute("exception",exception);
-        return "denied";
+        String result = userService.accessDenied(exception, model);
+        return result;
     }
 }
 
